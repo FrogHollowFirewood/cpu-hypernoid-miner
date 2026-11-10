@@ -1,0 +1,23 @@
+{
+  "source_family": "Prototype 10 packed AVX2 engine; selected common worker, constants, tests and scalar reference",
+  "original_noid_c_sha256": "e3f5ee052b462fdf99386a202ee7e291ef9dfbfe286e91e88e52318e0bef331c",
+  "copied_input_sha256": {
+    "noid.h": "77f37249f427f32f1c9c34807516812295fa795f6cc5493c861f510d4f0af42c",
+    "noid_tables.h": "d818574f39c4a21d3c49000437e161548d69c1296710618c0cffb40845533dd9",
+    "worker.c": "1628a710aee2b8b7c2e3ec6b17abf9c6fdfc0f6dd6caf39f9e71fc5b3b24d5fc",
+    "consensus-vectors.json": "193f932c23cec3c7a9b1812cde1d73d116f8330855f11f471c5414c75cf35757",
+    "check_vectors.py": "46d7ac0aa627a4cc0dcefc58e34103ced6c77d46da0338123ff906bbfb70aee1",
+    "test_targets.c": "07992f9ad93cee1f0cd8476fa97c91c8f8e52b4146cbc3e1372867bb6315a83b",
+    "test_job_transitions.c": "ad604f783798505aa162213bd4710b9ade266ad40c0db52e0e743ee02deb93b7",
+    "test_worker.py": "af2ea568bdfee3e9fccfa560dd82f81b59d12b5f735ab14b4bb3f5b86a341a94",
+    "test_nonce_groups.py": "8df6fa77b1328f395a73cdd8d349f2bffcea62bf58ff79a9b495a20edd0b6dad",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE": "68b38b98df9d7cfc58306818b5b2cc1c3865fd5f37c2ca92432b2ba4550f307a"
+  },
+  "changes": [
+    "New CPU-neutral scalar backend with independent software multiplication and cached midstate.",
+    "Explicit little-endian byte loads and stores.",
+    "Public version banner and explicit worker nonce byte order."
+  ],
+  "compiler_requirement": "64-bit GCC or Clang supporting unsigned __int128 and POSIX threads"
+}

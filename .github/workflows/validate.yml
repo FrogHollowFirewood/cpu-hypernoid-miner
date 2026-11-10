@@ -1,0 +1,74 @@
+name: Linux correctness and release packages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    name: Native ${{ matrix.arch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            arch: x86_64
+          - os: ubuntu-22.04-arm
+            arch: aarch64
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      NONCE_TEST_TIMEOUT: '300'
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential python3 binutils openssl ca-certificates
+      - name: Build native binaries and integrity manifest
+        run: make all ARCH=${{ matrix.arch }}
+      - name: Validate offline arithmetic and localhost TLS
+        run: python3 tools/validate_release.py
+      - name: Package the validated native build
+        run: |
+          export SOURCE_DATE_EPOCH="$(git log -1 --format=%ct)"
+          if [ '${{ matrix.arch }}' = x86_64 ]; then
+            python3 tools/package_release.py --source
+          else
+            python3 tools/package_release.py
+          fi
+      - name: Verify the extracted download
+        run: |
+          mkdir -p build/unpacked
+          tar -xzf dist/cpu-hypernoid-miner-v1.0.0-linux-${{ matrix.arch }}.tar.gz -C build/unpacked
+          cd build/unpacked/cpu-hypernoid-miner-v1.0.0-linux-${{ matrix.arch }}
+          sha256sum --check PACKAGE-SHA256SUMS
+          ./hypernoid-miner --version
+          ./hypernoid-miner --check
+      - name: Upload qualified packages and evidence
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: linux-${{ matrix.arch }}
+          path: |
+            dist/*
+            build/build-info.json
+            build/validation/ci-validation.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload test logs for inspection
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: validation-logs-${{ matrix.arch }}
+          path: build/validation/*.log
+          if-no-files-found: ignore
+          retention-days: 14

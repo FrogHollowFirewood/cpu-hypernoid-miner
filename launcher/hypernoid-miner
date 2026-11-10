@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+"""CPU HyperNOID Miner public entry point."""
+import sys
+from pathlib import Path
+import hashlib
+import json
+
+sys.dont_write_bytecode = True
+module = Path(__file__).resolve().with_name('noid_launcher.py')
+source = module.read_bytes()
+manifest = module.parent.parent/'build/runtime-manifest.json'
+if manifest.exists():
+    try:
+        expected = json.loads(manifest.read_text())['files']['launcher/noid_launcher.py']
+        if hashlib.sha256(source).hexdigest() != expected:
+            raise ValueError('launcher source checksum mismatch')
+    except (OSError, ValueError, KeyError, TypeError):
+        print('STOPPED: Launcher source differs from the runtime manifest; rebuild or verify the package.', file=sys.stderr)
+        raise SystemExit(78)
+namespace = {'__file__': str(module), '__name__': 'hypernoid_launcher'}
+exec(compile(source, str(module), 'exec'), namespace)
+
+if __name__ == '__main__':
+    raise SystemExit(namespace['main']())

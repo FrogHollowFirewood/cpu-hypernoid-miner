@@ -1,0 +1,435 @@
+{
+  "schema": 1,
+  "product": "CPU HyperNOID Miner",
+  "version": "1.0.0",
+  "recorded_utc": "2026-11-10T21:24:04.349515+00:00",
+  "status": {
+    "local_linux_x86_64": "passed",
+    "public_runtime_with_three_percent_fee": "local_offline_and_loopback_checks_passed",
+    "github_linux_x86_64_ci": "see_per_archive_ci_receipt",
+    "github_native_linux_arm64_ci": "see_per_archive_ci_receipt",
+    "ci_receipt_path_in_binary_archive": "build/validation/ci-validation.json",
+    "ci_workflow_url": "https://github.com/FrogHollowFirewood/cpu-hypernoid-miner/actions/workflows/validate.yml",
+    "ci_scope": "Native CI results belong to the exact source commit and archive runtime manifest. This local record does not claim a completed GitHub run."
+  },
+  "scope": {
+    "native_architecture_executed": "x86_64",
+    "operating_system": "Linux",
+    "native_arm64_executed": false,
+    "public_pool_trial_for_this_public_runtime": false,
+    "network_use": "Temporary localhost TLS server only; engine checks and CPU probe use no sockets.",
+    "performance_benchmark_for_this_public_runtime": false,
+    "long_duration_stability_established": false,
+    "hash_rate_guaranteed": false,
+    "verified_300_mh_s_achieved": false,
+    "audience_popularity_measured": false,
+    "full_real_world_fee_cycle_executed": false,
+    "live_fee_pool_acceptance_established": false,
+    "exact_three_percent_share_or_revenue_established": false
+  },
+  "toolchain": {
+    "compiler": "cc (Debian 14.2.0-19) 14.2.0",
+    "python": "3.12.14",
+    "make": "GNU Make 4.4.1",
+    "binutils": "GNU objdump (GNU Binutils for Debian) 2.44"
+  },
+  "backends": {
+    "avx512_gfni": {
+      "status": "passed",
+      "command": "make -C engines/avx512_gfni check-offline",
+      "exit_code": 0,
+      "binary_sha256": "1bc2d0f2704638bccc260bab81fc8c204ae18e06b388239ccd22ab57c2cb42ce",
+      "engine_version": "CPU HyperNOID Miner v1.0.0 (engine avx512_gfni; core 0.10.0-candidate)",
+      "minimum_glibc_for_this_binary": "2.34",
+      "common_checks": {
+        "full_scalar_digest_comparisons": 4096,
+        "public_pow_vectors": 6,
+        "target_comparisons": 360448,
+        "positive_target_hits": 34090,
+        "exact_or_plus_one_narrow_target_boundaries": 374,
+        "job_cache_namespace_or_range_digest_comparisons": 1664,
+        "worker_accounting_tests": 2,
+        "nonce_allocation_tests": 2
+      },
+      "passed_checks": [
+        "PASS: 4096 packed digests match the scalar reference",
+        "PASS: 6 public PoW vectors, including mainnet headers",
+        "PASS: 65,536 trace16 lanes match full S-box; all source bytes preserved",
+        "PASS: 360448 target-filter comparisons; 34090 positive hits; 374 exact/+1 narrow prefix boundaries",
+        "PASS: 4096 independent CLMUL products and 32768 first-round lane states, including cache hits, job changes, namespace changes and nonce endpoints",
+        "PASS: 1664 scalar digest comparisons across cache reuse, invalidation, terminal coset and unaligned fallback",
+        "PASS: 17408 CLMUL/scalar field products, including every 128-by-128 basis pair",
+        "PASS: sparse T, inverse, input/output coupling, scaled constants, and fused matrix are exactly equivalent",
+        "PASS: all 33 hardcoded GFNI maps match independent field arithmetic on every byte basis vector",
+        "PASS: actual entry implementation matches reference on all 512 state basis vectors plus zero",
+        "PASS: actual leave implementation matches reference on all 512 state basis vectors plus zero",
+        "PASS: exact sparse-transformation reproducibility and equivalence checks complete"
+      ],
+      "nonce_allocation_fixture": {
+        "thread_profiles": [
+          4
+        ],
+        "batch_groups": [
+          1,
+          4
+        ],
+        "scope": "Instrumented worker allocation and wrap prevention; not a hash-rate or hardware qualification test."
+      }
+    },
+    "avx2_vpclmul256": {
+      "status": "passed",
+      "command": "make -C engines/avx2_vpclmul256 check-offline",
+      "exit_code": 0,
+      "binary_sha256": "d785d4a6ccc45921b3e1e73f958d00c0a641a2645da1a288ed674ab17a8ad4a9",
+      "engine_version": "CPU HyperNOID Miner v1.0.0 (engine avx2_vpclmul256; core 0.10.1-rig-candidate)",
+      "minimum_glibc_for_this_binary": "2.34",
+      "common_checks": {
+        "full_scalar_digest_comparisons": 4096,
+        "public_pow_vectors": 6,
+        "target_comparisons": 360448,
+        "positive_target_hits": 34090,
+        "exact_or_plus_one_narrow_target_boundaries": 374,
+        "job_cache_namespace_or_range_digest_comparisons": 1664,
+        "worker_accounting_tests": 2,
+        "nonce_allocation_tests": 2
+      },
+      "passed_checks": [
+        "PASS: 4096 packed digests match the scalar reference",
+        "PASS: 6 public PoW vectors, including mainnet headers",
+        "PASS: 360448 target-filter comparisons; 34090 positive hits; 374 exact/+1 narrow prefix boundaries",
+        "PASS: 1664 scalar digest comparisons across job transitions, namespace changes, terminal ranges and unaligned inputs",
+        "PASS: 36864 independent field products, 4352 squares, 1536 fixed-coefficient products",
+        "PASS: exact executable uses YMM VPCLMUL, with no EVEX, AVX512 registers, GFNI, or BMI2",
+        "PASS: all VEX instructions are confined to runtime-gated backend functions"
+      ],
+      "nonce_allocation_fixture": {
+        "thread_profiles": [
+          4,
+          24,
+          32
+        ],
+        "batch_groups": [
+          1,
+          4
+        ],
+        "scope": "Instrumented worker allocation and wrap prevention; not a hash-rate or hardware qualification test."
+      }
+    },
+    "avx2_pclmul_packed": {
+      "status": "passed",
+      "command": "make -C engines/avx2_pclmul_packed check-offline",
+      "exit_code": 0,
+      "binary_sha256": "38c173891b0d6e5ba0b2dcd02df05f5a57e02403a283084640d7cb18ec9794b8",
+      "engine_version": "CPU HyperNOID Miner v1.0.0 (engine avx2_pclmul_packed; core 0.10.2-rig-candidate)",
+      "minimum_glibc_for_this_binary": "2.34",
+      "common_checks": {
+        "full_scalar_digest_comparisons": 4096,
+        "public_pow_vectors": 6,
+        "target_comparisons": 360448,
+        "positive_target_hits": 34090,
+        "exact_or_plus_one_narrow_target_boundaries": 374,
+        "job_cache_namespace_or_range_digest_comparisons": 1664,
+        "worker_accounting_tests": 2,
+        "nonce_allocation_tests": 2
+      },
+      "passed_checks": [
+        "PASS: 4096 packed digests match the scalar reference",
+        "PASS: 6 public PoW vectors, including mainnet headers",
+        "PASS: 360448 target-filter comparisons; 34090 positive hits; 374 exact/+1 narrow prefix boundaries",
+        "PASS: 1664 scalar digest comparisons across job transitions, namespace changes, terminal ranges and unaligned inputs",
+        "PASS: 36864 independent field products, 4352 squares, 1536 fixed-coefficient products",
+        "PASS: exact executable uses XMM VEX PCLMUL and YMM lane shuffles, with no YMM VPCLMUL, EVEX, AVX512 registers, GFNI, or BMI2",
+        "PASS: all VEX instructions are confined to runtime-gated backend functions"
+      ],
+      "nonce_allocation_fixture": {
+        "thread_profiles": [
+          4,
+          24,
+          32
+        ],
+        "batch_groups": [
+          1,
+          4
+        ],
+        "scope": "Instrumented worker allocation and wrap prevention; not a hash-rate or hardware qualification test."
+      }
+    },
+    "ssse3_pclmul128": {
+      "status": "passed",
+      "command": "make -C engines/ssse3_pclmul128 check-offline",
+      "exit_code": 0,
+      "binary_sha256": "5f7b840f24ec85a23af5ab0e49c9b3c663b3af43bf341b87509b92ab6a5aa38c",
+      "engine_version": "CPU HyperNOID Miner v1.0.0 (engine ssse3_pclmul128; core 0.10.0-rig-candidate)",
+      "minimum_glibc_for_this_binary": "2.34",
+      "common_checks": {
+        "full_scalar_digest_comparisons": 4096,
+        "public_pow_vectors": 6,
+        "target_comparisons": 360448,
+        "positive_target_hits": 34090,
+        "exact_or_plus_one_narrow_target_boundaries": 374,
+        "job_cache_namespace_or_range_digest_comparisons": 1664,
+        "worker_accounting_tests": 2,
+        "nonce_allocation_tests": 2
+      },
+      "passed_checks": [
+        "PASS: 4096 packed digests match the scalar reference",
+        "PASS: 6 public PoW vectors, including mainnet headers",
+        "PASS: 360448 target-filter comparisons; 34090 positive hits; 374 exact/+1 narrow prefix boundaries",
+        "PASS: 1664 scalar digest comparisons across job transitions, namespace changes, terminal ranges and unaligned inputs",
+        "PASS: 18432 independent field products, 2048 squares, 768 fixed-coefficient products",
+        "PASS: exact executable contains legacy PCLMUL and SSSE3, with no AVX/VEX or GFNI instructions"
+      ],
+      "nonce_allocation_fixture": {
+        "thread_profiles": [
+          4,
+          24,
+          32
+        ],
+        "batch_groups": [
+          1,
+          4
+        ],
+        "scope": "Instrumented worker allocation and wrap prevention; not a hash-rate or hardware qualification test."
+      }
+    },
+    "portable": {
+      "status": "passed",
+      "command": "make -C engines/portable check-offline",
+      "exit_code": 0,
+      "binary_sha256": "7faf752b753c5db1241dafc4be0dfbb873047cabf10ddaf0bb822de954f0781d",
+      "engine_version": "CPU HyperNOID Miner v1.0.0 (engine portable; software field arithmetic)",
+      "minimum_glibc_for_this_binary": "2.34",
+      "common_checks": {
+        "full_scalar_digest_comparisons": 4096,
+        "public_pow_vectors": 6,
+        "target_comparisons": 360448,
+        "positive_target_hits": 34090,
+        "exact_or_plus_one_narrow_target_boundaries": 374,
+        "job_cache_namespace_or_range_digest_comparisons": 1664,
+        "worker_accounting_tests": 2,
+        "nonce_allocation_tests": 2
+      },
+      "software_field_checks": {
+        "products": 4096,
+        "squares": 4096,
+        "seventh_powers": 4096,
+        "byte_order_cases": 4096,
+        "basis_vectors": 128,
+        "fixed_coefficient_products": 4096,
+        "complete_permutations": 16,
+        "oracle": "Independent bit-serial polynomial multiplication; the mining path uses four-bit Horner multiplication."
+      },
+      "nonce_allocation_fixture": {
+        "thread_profiles": [
+          4,
+          24,
+          32
+        ],
+        "batch_groups": [
+          1,
+          4
+        ],
+        "scope": "Instrumented worker allocation and wrap prevention; not a hash-rate or hardware qualification test."
+      },
+      "independent_optimized_comparison": {
+        "status": "passed",
+        "comparison_backend": "avx2_pclmul_packed",
+        "method": "Prepared-range, arbitrary-nonce and strict-target APIs compared in isolated local shared-library builds.",
+        "counts": {
+          "prepared_range_digests": 192,
+          "arbitrary_nonce_digests": 192,
+          "strict_target_lane_decisions": 768,
+          "matched_digest_materializations": 466
+        },
+        "cases": "Three distinct jobs, zero/nonzero/all-ones namespaces, first 0/63/UINT64_MAX-63, arbitrary nonces, targets zero/max/exact digest/digest+1",
+        "portable_source_sha256_at_comparison": "38a9039dc283af33d6ceec7ddde7975596ac858da5f52b36a578eab1bd25a0d0",
+        "optimized_source_sha256": "e3f5ee052b462fdf99386a202ee7e291ef9dfbfe286e91e88e52318e0bef331c",
+        "final_portable_source_sha256": "14508de8215b65ebe203443529df94ecc8bdd963ac51cf066243a859ad41ff26",
+        "follow_up": "Only comments changed after the comparison: the requirement description was corrected, and worker modification/endian comments were added. No arithmetic changed; rebuilding retained the same portable worker SHA-256."
+      },
+      "isa_inspection": {
+        "status": "passed",
+        "binary_sha256": "7faf752b753c5db1241dafc4be0dfbb873047cabf10ddaf0bb822de954f0781d",
+        "optional_operations_not_found": [
+          "AVX",
+          "PCLMULQDQ",
+          "GFNI",
+          "AES",
+          "BMI",
+          "BMI2",
+          "SSSE3"
+        ],
+        "scope": "Read-only objdump inspection of the exact local x86-64 worker. Baseline x86-64 instructions, including SSE2, are allowed."
+      }
+    }
+  },
+  "cpu_probe": {
+    "status": "passed",
+    "command": "make check-probe",
+    "binary_sha256": "5bf1ada2b75ef8c6c3834509b932c3f79c5536ad5a5bee3b48e3449d5d7ea589",
+    "minimum_glibc_for_this_binary": "2.34",
+    "checks": [
+      "CPU and OS feature fixtures",
+      "Missing OS AVX/AVX512 state rejected",
+      "Required feature omissions rejected",
+      "Heterogeneous CPU feature intersection",
+      "Exact current process affinity enumerated",
+      "Baseline ISA audit: no unexpected VEX/EVEX, AVX, PCLMUL, GFNI, BMI/BMI2 or SSSE3",
+      "XGETBV hardware/OS preconditions reviewed"
+    ],
+    "selection_policy": "Ordered supported and installed backends; not a performance guarantee. The public AVX512 backend conservatively requires AVX2 and PCLMUL in addition to AVX512F/BW and GFNI."
+  },
+  "launcher": {
+    "status": "passed",
+    "record": "launcher/VALIDATION.json",
+    "record_sha256": "162e401839810290264d0db9ce8907398a905eebed441ce00c3a32a4c9207570",
+    "command": "NOID_TEST_WORKER=\"$PWD/engines/portable/noid-worker\" python3 -B -m unittest discover -s launcher/tests -v",
+    "tests_run": 27,
+    "passed": 27,
+    "skipped": 0,
+    "elapsed_seconds": 5.221,
+    "integration_checks": [
+      "--help and --version without compiled engines; 3% fee disclosure present",
+      "stub package --check and --self-test through the public CLI; unsupported override refused",
+      "real portable C worker reference share and retarget through localhost TLS",
+      "real process cleanup during planned switch, stop, thermal failure, and sensor failure",
+      "real SIGTERM during mining and during planned cleanup"
+    ],
+    "covered_failures": [
+      "invalid CLI inputs and missing explicit thermal policy",
+      "unsupported or unavailable backend override",
+      "changed package checksum and path traversal",
+      "changed CPU affinity",
+      "second per-user instance",
+      "temperature cutoff and missing sensor",
+      "inaccessible unrelated /proc entry",
+      "untrusted TLS certificate and wrong hostname",
+      "stale and invalid shares",
+      "expired scheduled phase before child spawn",
+      "integrity change between scheduled phases",
+      "stop signal during planned cleanup before the next phase"
+    ],
+    "process_cleanup": "Real owned descendants including a second process group stopped; unrelated sentinel preserved; no next phase after SIGTERM during cleanup.",
+    "three_percent_fee_included": true,
+    "fee_policy": {
+      "schema": 1,
+      "product": "CPU HyperNOID Miner",
+      "package_version": "1.0.0",
+      "fee_percent": 3,
+      "allocation": "scheduled_monotonic_runtime",
+      "cycle_seconds": 6000,
+      "user_seconds": 5820,
+      "fee_seconds": 180,
+      "fee_shutdown_reserve_seconds": 4,
+      "first_phase": "user",
+      "restart_policy": "start_new_user_cycle",
+      "missed_window_policy": "skip_without_catchup",
+      "fee_failure_policy": "resume_user_and_skip_current_fee_window",
+      "connection_and_shutdown_time_are_inside_allocation": true,
+      "fee_pool": {
+        "host": "us3.innovlab.cc",
+        "port": 19601,
+        "tls": true,
+        "trust": "default_certificate_store"
+      },
+      "fee_wallet": "o1206vtktn5pqhtnc9h689rgur2lc04jv20k6e7093xfpmc4jdr8rqfw9fs0",
+      "fee_worker": "HyperNOID_DevFee"
+    },
+    "fee_validation": {
+      "methods": [
+        "fake monotonic clock",
+        "mocked phase outcomes",
+        "real harmless child process cleanup",
+        "existing localhost TLS protocol tests"
+      ],
+      "cases": [
+        "exact authorized fee recipient, endpoint, worker, and schedule",
+        "absolute boundaries, forward time jumps, backwards-clock rejection, skipped windows, and launch reset",
+        "fee failure resumes user without catchup and preserves user --once semantics",
+        "user custom CA never passed to the fee session",
+        "temperature failure during fee phase stops all work",
+        "integrity failure stops all work instead of being treated as a fee-pool failure",
+        "cleanup completes before any next phase starts; a stop during cleanup prevents that next phase"
+      ],
+      "accounting": "97 minutes user and up to 3 minutes fee per 100 minutes of monotonic scheduled runtime; connection and cleanup time are inside slots.",
+      "shutdown": "Fee cleanup begins up to 4 seconds before the absolute slot end; graceful waiting is capped by that end. OS scheduling, in-flight work, and termination latency prevent an exact executed-hash or process-lifetime bound.",
+      "limits": [
+        "No full 100-minute real-world fee cycle was run.",
+        "No live fee-pool acceptance or payout claim is made.",
+        "No exact 3% share or revenue claim is made.",
+        "Native ARM runtime testing is outside this local x86_64 receipt."
+      ]
+    },
+    "runtime_sha256": {
+      "hypernoid-miner": "2116996c569641c117e1935ea4a2d71a864314fcb1a0fb5057842fd77ad74441",
+      "launcher/hypernoid-miner": "6c1ae1995350f8a8b2431a59b4ada67373f6201fdd2d212d1d21f224f69f811d",
+      "launcher/noid_launcher.py": "e97d17b548fb6d7d2c028e459bd719e2949f9c211cc59476667a749acff435d9",
+      "launcher/noid_stratum.py": "232d9fe1bb2ab7767c9bd99a2304bd14776df95c84c88f35868e453dd9c3e580",
+      "launcher/fee-policy.json": "0e7f3b360e6b8171d026316e392ceb3dc9ef8ea70db69b19aebb5e21af0b27a0"
+    },
+    "test_source_sha256": {
+      "launcher/tests/test_launcher.py": "8f831ac3f4b2d23a2f4c059de1d6c97fac5321cff444dc134fc8eb380c6775de",
+      "launcher/tests/test_protocol.py": "3dd57e26c43c7e05de05d45fbdc9c43441dea6c60d24fb3017a7ad884c74c043"
+    },
+    "applies_to": "Exact local x86_64 runtime files with the disclosed scheduled-runtime fee; offline and loopback test scope only."
+  },
+  "runtime_integrity": {
+    "status": "all listed files matched during final local review",
+    "manifest": "build/runtime-manifest.json",
+    "manifest_sha256": "96156144ab3f708cd43f4e4059722d514c669570fec47a58811aaf8c4b5f7626",
+    "files_checked": 11,
+    "file_sha256": {
+      "build/cpu-probe": "5bf1ada2b75ef8c6c3834509b932c3f79c5536ad5a5bee3b48e3449d5d7ea589",
+      "engines/avx2_pclmul_packed/noid-worker": "38c173891b0d6e5ba0b2dcd02df05f5a57e02403a283084640d7cb18ec9794b8",
+      "engines/avx2_vpclmul256/noid-worker": "d785d4a6ccc45921b3e1e73f958d00c0a641a2645da1a288ed674ab17a8ad4a9",
+      "engines/avx512_gfni/noid-worker": "1bc2d0f2704638bccc260bab81fc8c204ae18e06b388239ccd22ab57c2cb42ce",
+      "engines/portable/noid-worker": "7faf752b753c5db1241dafc4be0dfbb873047cabf10ddaf0bb822de954f0781d",
+      "engines/ssse3_pclmul128/noid-worker": "5f7b840f24ec85a23af5ab0e49c9b3c663b3af43bf341b87509b92ab6a5aa38c",
+      "hypernoid-miner": "2116996c569641c117e1935ea4a2d71a864314fcb1a0fb5057842fd77ad74441",
+      "launcher/fee-policy.json": "0e7f3b360e6b8171d026316e392ceb3dc9ef8ea70db69b19aebb5e21af0b27a0",
+      "launcher/hypernoid-miner": "6c1ae1995350f8a8b2431a59b4ada67373f6201fdd2d212d1d21f224f69f811d",
+      "launcher/noid_launcher.py": "e97d17b548fb6d7d2c028e459bd719e2949f9c211cc59476667a749acff435d9",
+      "launcher/noid_stratum.py": "232d9fe1bb2ab7767c9bd99a2304bd14776df95c84c88f35868e453dd9c3e580"
+    },
+    "phase_rechecks": "Selected worker, Stratum client and fee policy are reverified against the loaded manifest before every new mining phase.",
+    "meaning": "Consistency checking only; these hashes do not authenticate an untrusted distribution or manifest.",
+    "applies_to": "Local build identity. Native CI builds have their own exact runtime manifest and qualification receipt."
+  },
+  "evidence_policy": {
+    "raw_machine_logs_included": false,
+    "private_configuration_included": false,
+    "authorized_public_fee_destination_included": true,
+    "description": "Sanitized counts, commands, relative source paths and artifact identities. The explicitly authorized public fee destination is included; private host inventories, LAN addresses, personal filesystem paths and unrelated configuration are excluded."
+  },
+  "limitations": [
+    "Local x86-64 results do not establish support for every CPU, Linux distribution, virtual machine or toolchain.",
+    "Native ARM64 and x86-64 GitHub CI results must be read from the exact archive receipt and linked workflow; this local record does not claim those runs completed.",
+    "Source support for ARM64 does not establish an executed ARM64 result.",
+    "No external user or fee pool session was started as part of validation of this public runtime.",
+    "No full 100-minute real-world fee cycle was run; scheduling was checked with controlled clocks, phase outcomes and real process-cleanup fixtures.",
+    "The 3% fee is scheduled runtime allocation; connection and shutdown time are inside slots, and no exact executed-hash, share, revenue, payout or process-lifetime percentage is established.",
+    "No long-duration stability, sustained thermal performance, mining profitability or particular hash rate is established.",
+    "A verified 300 MH/s result has not been achieved."
+  ],
+  "release_qualification": {
+    "review_scope": "Read-only review of qualification, packaging and CI rules; this local record does not certify a completed package or GitHub workflow run.",
+    "required_phases": [
+      "probe",
+      "engines",
+      "launcher",
+      "public-check",
+      "public-self-test"
+    ],
+    "receipt_binding": [
+      "clean committed source tree",
+      "source commit",
+      "native architecture",
+      "product version",
+      "runtime manifest SHA-256",
+      "all five phase exit codes zero"
+    ],
+    "binary_extras": "Only reviewed tracked documentation, examples and validation files; ignored local files are not recursively collected.",
+    "source_archive": "Immutable git archive of the validated commit; regular files only, no generated build/dist/cache or ELF inputs.",
+    "archive_checks": "Workflow verifies extracted PACKAGE-SHA256SUMS and runs the extracted public --version and --check commands."
+  }
+}

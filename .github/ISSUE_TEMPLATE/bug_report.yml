@@ -1,0 +1,36 @@
+name: Bug or setup problem
+description: Report a reproducible Linux mining, build, or setup issue.
+title: '[Bug] '
+body:
+  - type: markdown
+    attributes:
+      value: 'Remove private keys, seed phrases, credentials, wallet addresses, internal hostnames, and unrelated logs before posting.'
+  - type: input
+    id: version
+    attributes:
+      label: Miner version
+      placeholder: CPU HyperNOID Miner v1.0.0
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: Linux distribution, architecture, and CPU model
+      placeholder: Ubuntu 22.04, x86_64, CPU model
+    validations:
+      required: true
+  - type: input
+    id: backend
+    attributes:
+      label: Selected backend and thread count
+  - type: textarea
+    id: problem
+    attributes:
+      label: Expected behavior, actual behavior, and steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Short sanitized log excerpt
+      render: text

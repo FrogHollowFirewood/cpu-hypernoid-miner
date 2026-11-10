@@ -1,0 +1,15 @@
+title: CPU HyperNOID Miner
+description: Linux CPU mining for Parano1d, with automatic CPU selection and detailed setup guides.
+url: https://froghollowfirewood.github.io
+baseurl: /cpu-hypernoid-miner
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
+exclude:
+  - community-submission.md

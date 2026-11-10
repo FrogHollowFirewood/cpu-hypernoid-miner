@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "product": "CPU HyperNOID Miner",
+  "package_version": "1.0.0",
+  "fee_percent": 3,
+  "allocation": "scheduled_monotonic_runtime",
+  "cycle_seconds": 6000,
+  "user_seconds": 5820,
+  "fee_seconds": 180,
+  "fee_shutdown_reserve_seconds": 4,
+  "first_phase": "user",
+  "restart_policy": "start_new_user_cycle",
+  "missed_window_policy": "skip_without_catchup",
+  "fee_failure_policy": "resume_user_and_skip_current_fee_window",
+  "connection_and_shutdown_time_are_inside_allocation": true,
+  "fee_pool": {
+    "host": "us3.innovlab.cc",
+    "port": 19601,
+    "tls": true,
+    "trust": "default_certificate_store"
+  },
+  "fee_wallet": "o1206vtktn5pqhtnc9h689rgur2lc04jv20k6e7093xfpmc4jdr8rqfw9fs0",
+  "fee_worker": "HyperNOID_DevFee"
+}

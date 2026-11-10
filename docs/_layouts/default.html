@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="{{ page.description | default: site.description | escape }}">
+  <title>{{ page.title | escape }} · {{ site.title | escape }}</title>
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/mark.svg' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="masthead">
+    <a class="brand" href="{{ '/' | relative_url }}"><img src="{{ '/assets/mark.svg' | relative_url }}" width="38" height="38" alt=""><span>CPU HyperNOID<span class="brand-sub">MINER · LINUX · v1.0.0</span></span></a>
+    <nav class="top-links" aria-label="Project"><a href="https://github.com/FrogHollowFirewood/cpu-hypernoid-miner">Source</a><a class="button small" href="https://github.com/FrogHollowFirewood/cpu-hypernoid-miner/releases/latest">Download</a></nav>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <p class="nav-label">Documentation</p>
+      <nav aria-label="Documentation">
+        <a href="{{ '/' | relative_url }}">Overview</a>
+        <a href="{{ '/getting-started.html' | relative_url }}">1. Install and start</a>
+        <a href="{{ '/configuration.html' | relative_url }}">2. Configure the miner</a>
+        <a href="{{ '/hardware.html' | relative_url }}">CPU compatibility</a>
+        <a href="{{ '/fees.html' | relative_url }}">3% miner-use fee</a>
+        <a href="{{ '/building.html' | relative_url }}">Build from source</a>
+        <a href="{{ '/troubleshooting.html' | relative_url }}">Troubleshooting</a>
+        <a href="{{ '/updating.html' | relative_url }}">Update or roll back</a>
+        <a href="{{ '/validation.html' | relative_url }}">Tests and limitations</a>
+        <a href="{{ '/provenance.html' | relative_url }}">Source and licensing</a>
+      </nav>
+      <div class="sidebar-note">Independent community software for Parano1d. Source available under Apache 2.0.</div>
+    </aside>
+    <main id="main" class="content" tabindex="-1">{{ content }}</main>
+  </div>
+  <footer><span>CPU HyperNOID Miner · maintained by <a href="https://github.com/FrogHollowFirewood">FrogHollowFirewood</a></span><span><a href="https://github.com/FrogHollowFirewood/cpu-hypernoid-miner/issues">Report a problem</a> · <a href="https://parano1d.org/">Parano1d</a></span></footer>
+  <script>
+    for (const link of document.querySelectorAll('.sidebar nav a')) {
+      if (new URL(link.href).pathname.replace(/index\.html$/, '') === location.pathname.replace(/index\.html$/, '')) link.setAttribute('aria-current', 'page');
+    }
+    for (const table of document.querySelectorAll('.content table')) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'table-scroll';
+      wrapper.tabIndex = 0;
+      wrapper.setAttribute('role', 'region');
+      wrapper.setAttribute('aria-label', 'Scrollable reference table');
+      table.parentNode.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+    }
+  </script>
+</body>
+</html>

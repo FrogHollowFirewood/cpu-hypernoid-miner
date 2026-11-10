@@ -1,0 +1,22 @@
+# SPDX-License-Identifier: Apache-2.0
+# Optional systemd USER service. Install only after a successful foreground trial.
+[Unit]
+Description=CPU HyperNOID Miner
+Documentation=https://froghollowfirewood.github.io/cpu-hypernoid-miner/configuration.html
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+Type=simple
+WorkingDirectory=%h/opt/cpu-hypernoid-miner/current
+EnvironmentFile=%h/.config/hypernoid-miner/miner.env
+ExecStart=%h/opt/cpu-hypernoid-miner/current/hypernoid-miner --pool ${HYPERNOID_POOL} --wallet ${HYPERNOID_WALLET} --worker ${HYPERNOID_WORKER} --threads ${HYPERNOID_THREADS} --stop-temperature ${HYPERNOID_STOP_C}
+Restart=on-failure
+RestartPreventExitStatus=2 78
+RestartSec=10
+KillMode=control-group
+KillSignal=SIGINT
+TimeoutStopSec=20
+
+[Install]
+WantedBy=default.target

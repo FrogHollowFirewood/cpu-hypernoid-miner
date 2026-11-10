@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "product": "CPU HyperNOID Miner",
+  "version": "1.0.0",
+  "validation_status": "release candidate until published",
+  "validated_utc": "2026-11-10T21:22:51.165300+00:00",
+  "architecture_tested": "x86_64 Linux",
+  "test_command": "NOID_TEST_WORKER=\"$PWD/engines/portable/noid-worker\" python3 -B -m unittest discover -s launcher/tests -v",
+  "tests_run": 27,
+  "passed": 27,
+  "skipped": 0,
+  "elapsed_seconds": 5.221,
+  "network_scope": "Temporary localhost TLS servers only; no real user or fee mining pool contacted.",
+  "integration_checks": [
+    "--help and --version without compiled engines; 3% fee disclosure present",
+    "stub package --check and --self-test through the public CLI; unsupported override refused",
+    "real portable C worker reference share and retarget through localhost TLS",
+    "real process cleanup during planned switch, stop, thermal failure, and sensor failure",
+    "real SIGTERM during mining and during planned cleanup"
+  ],
+  "covered_failures": [
+    "invalid CLI inputs and missing explicit thermal policy",
+    "unsupported or unavailable backend override",
+    "changed package checksum and path traversal",
+    "changed CPU affinity",
+    "second per-user instance",
+    "temperature cutoff and missing sensor",
+    "inaccessible unrelated /proc entry",
+    "untrusted TLS certificate and wrong hostname",
+    "stale and invalid shares",
+    "expired scheduled phase before child spawn",
+    "integrity change between scheduled phases",
+    "stop signal during planned cleanup before the next phase"
+  ],
+  "process_cleanup": "Real owned descendants including a second process group stopped; unrelated sentinel preserved; no next phase after SIGTERM during cleanup.",
+  "fee_policy": {
+    "schema": 1,
+    "product": "CPU HyperNOID Miner",
+    "package_version": "1.0.0",
+    "fee_percent": 3,
+    "allocation": "scheduled_monotonic_runtime",
+    "cycle_seconds": 6000,
+    "user_seconds": 5820,
+    "fee_seconds": 180,
+    "fee_shutdown_reserve_seconds": 4,
+    "first_phase": "user",
+    "restart_policy": "start_new_user_cycle",
+    "missed_window_policy": "skip_without_catchup",
+    "fee_failure_policy": "resume_user_and_skip_current_fee_window",
+    "connection_and_shutdown_time_are_inside_allocation": true,
+    "fee_pool": {
+      "host": "us3.innovlab.cc",
+      "port": 19601,
+      "tls": true,
+      "trust": "default_certificate_store"
+    },
+    "fee_wallet": "o1206vtktn5pqhtnc9h689rgur2lc04jv20k6e7093xfpmc4jdr8rqfw9fs0",
+    "fee_worker": "HyperNOID_DevFee"
+  },
+  "fee_validation": {
+    "methods": [
+      "fake monotonic clock",
+      "mocked phase outcomes",
+      "real harmless child process cleanup",
+      "existing localhost TLS protocol tests"
+    ],
+    "cases": [
+      "exact authorized fee recipient, endpoint, worker, and schedule",
+      "absolute boundaries, forward time jumps, backwards-clock rejection, skipped windows, and launch reset",
+      "fee failure resumes user without catchup and preserves user --once semantics",
+      "user custom CA never passed to the fee session",
+      "temperature failure during fee phase stops all work",
+      "integrity failure stops all work instead of being treated as a fee-pool failure",
+      "cleanup completes before any next phase starts; a stop during cleanup prevents that next phase"
+    ],
+    "accounting": "97 minutes user and up to 3 minutes fee per 100 minutes of monotonic scheduled runtime; connection and cleanup time are inside slots.",
+    "shutdown": "Fee cleanup begins up to 4 seconds before the absolute slot end; graceful waiting is capped by that end. OS scheduling, in-flight work, and termination latency prevent an exact executed-hash or process-lifetime bound.",
+    "limits": [
+      "No full 100-minute real-world fee cycle was run.",
+      "No live fee-pool acceptance or payout claim is made.",
+      "No exact 3% share or revenue claim is made.",
+      "Native ARM runtime testing is outside this local x86_64 receipt."
+    ]
+  },
+  "sha256": {
+    "hypernoid-miner": "2116996c569641c117e1935ea4a2d71a864314fcb1a0fb5057842fd77ad74441",
+    "launcher/hypernoid-miner": "6c1ae1995350f8a8b2431a59b4ada67373f6201fdd2d212d1d21f224f69f811d",
+    "launcher/noid_launcher.py": "e97d17b548fb6d7d2c028e459bd719e2949f9c211cc59476667a749acff435d9",
+    "launcher/noid_stratum.py": "232d9fe1bb2ab7767c9bd99a2304bd14776df95c84c88f35868e453dd9c3e580",
+    "launcher/fee-policy.json": "0e7f3b360e6b8171d026316e392ceb3dc9ef8ea70db69b19aebb5e21af0b27a0",
+    "launcher/tests/test_launcher.py": "8f831ac3f4b2d23a2f4c059de1d6c97fac5321cff444dc134fc8eb380c6775de",
+    "launcher/tests/test_protocol.py": "3dd57e26c43c7e05de05d45fbdc9c43441dea6c60d24fb3017a7ad884c74c043"
+  }
+}

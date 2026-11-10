@@ -1,0 +1,14 @@
+/build/
+/dist/
+__pycache__/
+*.py[cod]
+*.o
+*.log
+/engines/*/noid-worker
+/engines/*/test-*
+/engines/avx512_gfni/noid-seventh.S
+.DS_Store
+*.pem
+*.key
+*.env
+!*.env.example
